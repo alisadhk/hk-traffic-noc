@@ -3,10 +3,10 @@
 <p align="center"><b>Collects traffic graphs from PRTG maps for NOC reporting</b></p>
 
 <p align="center">
-  ![Python](https://img.shields.io/badge/Python-3.12-3776AB?logo=python&logoColor=white)
-  ![Platform](https://img.shields.io/badge/platform-Windows-0078D6?logo=windows&logoColor=white)
-  ![Updated](https://img.shields.io/badge/updated-2025-10-24-success)
-  [![Releases](https://img.shields.io/badge/downloads-Releases-blue)](https://github.com/alisadhk/hk-traffic-noc/releases/latest)
+  <img src="https://img.shields.io/badge/Python-3.12-3776AB?logo=python&logoColor=white" alt="Python">
+  <img src="https://img.shields.io/badge/platform-Windows-0078D6?logo=windows&logoColor=white" alt="Platform">
+  <img src="https://img.shields.io/badge/updated-2025--10--24-success" alt="Updated">
+  <a href="https://github.com/alisadhk/hk-traffic-noc/releases/latest"><img src="https://img.shields.io/badge/downloads-Releases-blue" alt="Releases"></a>
 </p>
 
 ---
@@ -21,8 +21,24 @@ A PyQt5 desktop tool for Network Operations Centers. It logs in to PRTG web maps
 - Saved credentials (Save Credentials)
 - Start / Stop / Clear controls with a live log
 - Activation dialog (trial/licensed mode)
+- Aggregates peak-hour traffic metrics (INT, FNA, GGC, Akamai, EdgeNext, CDN77) from distributed PRTG servers
+- Hourly background scheduling with customizable intervals
+- Writes the results straight into Excel sheets (openpyxl); Google Sheets output is described in the v5.2 project notes
+- Credentials are stored encrypted on the local machine
+
+## How it works
+- At every scheduled time the tool opens a Chrome session with Selenium and signs in to each PRTG server (Basra, Kut, Wi-Fi pools).
+- It opens the configured map ID and reads the traffic values.
+- The numbers are written into the matching cells of the Excel file you selected.
+- A notification and the live log tell you when the update finished.
+
+## Requirements
+- Windows 10/11 and Google Chrome.
+- Access to your PRTG servers and a prepared Excel report file.
+- Python 3.10+ with PyQt5, Selenium and openpyxl when running from source.
 
 ## Screenshots
+<p align="center"><img src="screenshots/overview.png" alt="HK Traffic - NOC screenshot" width="720"></p>
 <p align="center"><img src="screenshots/screenshot-1.png" alt="HK Traffic - NOC screenshot" width="720"></p>
 
 ## Download and install
@@ -57,6 +73,11 @@ python 111.py
 - All sensitive values from the original private version (passwords, tokens, license codes, user names, internal IP addresses, personal names and links) were replaced with `*****`.
 - The built-in license code and signing key are masked (`*****`). Put your own values in 111.py (LicenseManager) before building a licensed version, or use the trial mode.
 - Default IP/user/password fields are empty placeholders; type your own values in the UI.
+
+## Troubleshooting
+- Nothing is written: confirm the Excel file is closed and the path is correct.
+- Login errors: re-enter the IP, map ID and credentials for that site.
+- Schedule does not fire: tick the time slot and press **Save Schedule**.
 
 ## Build the executable yourself
 ```bash
